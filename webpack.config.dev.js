@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const precss = require('precss');
 const postcssImport = require('postcss-import');
@@ -14,6 +13,7 @@ const config = {
 
   entry: {
     app: './app.jsx',
+    vendor: ['react', 'react-dom', 'react-router-dom', 'react-router', 'redux', 'react-redux', 'axios'],
   },
 
   output: {
@@ -69,11 +69,11 @@ const config = {
   },
 
   plugins: [
-    new ExtractTextPlugin('css/app.css'),
-    new HtmlWebpackPlugin({
-      title: 'MERN | Build amazing things ... faster',
-      template: './index.html',
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
     }),
+    new ExtractTextPlugin('css/app.css'),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),

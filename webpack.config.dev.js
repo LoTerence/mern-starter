@@ -6,8 +6,8 @@ const cssNext = require('postcss-cssnext');
 const cssNested = require('postcss-nested');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const config = {
-  context: path.resolve(__dirname, 'client'),
+const clientConfig = {
+  context: path.resolve(__dirname, 'src', 'client'),
 
   devtool: 'eval-source-map',
 
@@ -82,4 +82,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+module.exports = [clientConfig];

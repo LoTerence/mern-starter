@@ -1,11 +1,14 @@
 const request = require('supertest');
-const server = require('../../server');
-const Post = require('../../server/models/post');
-const Seed = require('../../server/dummyData');
+const server = require('../../src/server');
+const Post = require('../../src/server/models/post');
+const Seed = require('../../src/server/dummyData');
 
 const cleanAndSeedDb = async () => {
   await Post.remove({});
   await Seed();
+
+  const posts = await Post.find({});
+  console.log(posts);
 };
 
 describe('Post APIs', () => {
@@ -13,15 +16,15 @@ describe('Post APIs', () => {
     await cleanAndSeedDb();
   });
 
+  test('Should load a post by slug', async () => {
+    const response = await request(server).get('/api/posts/hello-mern');
+    expect(response.statusCode).toBe(200);
+  }, 5000);
+
   test('Should load all posts', async () => {
     const response = await request(server).get('/api/posts');
     expect(response.statusCode).toBe(200);
     expect(response.body.posts.length).toEqual(2);
-  }, 5000);
-
-  test('Should load a post by slug', async () => {
-    const response = await request(server).get('/api/posts/hello-mern');
-    expect(response.statusCode).toBe(200);
   }, 5000);
 
   test('Should add a new post', async () => {

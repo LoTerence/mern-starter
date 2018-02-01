@@ -1,7 +1,7 @@
 const request = require('supertest');
-const server = require('../../src/server');
-const Post = require('../../src/server/models/post');
-const Seed = require('../../src/server/dummyData');
+const server = require('../../server');
+const Post = require('../../server/models/post');
+const Seed = require('../../server/dummyData');
 
 const cleanAndSeedDb = async () => {
   await Post.remove({});

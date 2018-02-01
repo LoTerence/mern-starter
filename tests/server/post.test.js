@@ -6,9 +6,6 @@ const Seed = require('../../src/server/dummyData');
 const cleanAndSeedDb = async () => {
   await Post.remove({});
   await Seed();
-
-  const posts = await Post.find({});
-  console.log(posts);
 };
 
 describe('Post APIs', () => {
